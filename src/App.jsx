@@ -1,31 +1,38 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import logo from '../LogoSA.jpeg';
+import logoWhatsapp from '../logoWhatsapp.jpg';
 
 const servicesTech = [
   {
     title: 'Développement d’application web & mobile',
     text: 'Conception, développement, intégration et optimisation d’applications modernes pour les PME, startups et particuliers.',
+    icon: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Design graphique',
     text: 'Identité visuelle, branding, supports marketing, visuels corporate et créations orientées performance.',
+    icon: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Animation 3D',
     text: 'Motion design, rendu 3D, contenus visuels immersifs pour des projets média, marketing et communication.',
+    icon: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Intelligence Artificielle',
     text: 'Solutions IA pour automatisation, analyse, chatbot, optimisation d’entreprise et nouveaux usages créatifs.',
+    icon: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Sécurité informatique',
     text: 'Audit, protection des systèmes, sensibilisation et sécurisation des projets pour réduire les risques numériques.',
+    icon: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=900&q=80',
   },
   {
     title: 'Accompagnement digital',
     text: 'Conseil stratégique, accompagnement des entreprises et PME dans leur transformation digitale et leur présence en ligne.',
+    icon: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80',
   },
 ];
 
@@ -36,6 +43,15 @@ const academyPrograms = [
   'Intelligence Artificielle',
   'Cybersécurité et Hacking',
   'Cours de répétition à domicile',
+];
+
+const academyPricing = [
+  { title: 'Développement web', price: '30 000 FCFA', inscription: '5 000 FCFA', total: '35 000 FCFA', note: 'À payer au départ du programme' },
+  { title: 'Développement mobile', price: '50 000 FCFA', inscription: '5 000 FCFA', total: '55 000 FCFA', note: 'À payer au départ du programme' },
+  { title: 'Design graphique', price: '45 000 FCFA', inscription: '5 000 FCFA', total: '50 000 FCFA', note: 'Pack design premium' },
+  { title: 'Design graphique avancé', price: '60 000 FCFA', inscription: '5 000 FCFA', total: '65 000 FCFA', note: 'Projet complet / support premium' },
+  { title: 'Animation 3D', price: '65 000 FCFA', inscription: '5 000 FCFA', total: '70 000 FCFA', note: 'Rendu + motion design' },
+  { title: 'Intelligence Artificielle', price: '45 000 FCFA', inscription: '5 000 FCFA', total: '50 000 FCFA', note: 'IA et automatisation' },
 ];
 
 const whyUs = [
@@ -50,6 +66,23 @@ const stats = [
   { value: 'Academy', label: 'Apprentissage pratique' },
   { value: 'Certif.', label: 'Programmes reconnus' },
   { value: 'Partenariat', label: 'Phoenix Institut' },
+];
+
+const galleryImages = [
+  new URL('../Images/F1.png', import.meta.url).href,
+  new URL('../Images/F2.png', import.meta.url).href,
+  new URL('../Images/F3.png', import.meta.url).href,
+  new URL('../Images/F4.png', import.meta.url).href,
+  new URL('../Images/F6.jpeg', import.meta.url).href,
+  new URL('../Images/F7.jpeg', import.meta.url).href,
+  new URL('../Images/F8.jpeg', import.meta.url).href,
+  new URL('../Images/F9.jpeg', import.meta.url).href,
+  new URL('../Images/F10.jpeg', import.meta.url).href,
+  new URL('../Images/F11.jpeg', import.meta.url).href,
+  new URL('../Images/F12.jpeg', import.meta.url).href,
+  new URL('../Images/F13.jpeg', import.meta.url).href,
+  new URL('../Images/F14.jpeg', import.meta.url).href,
+  new URL('../Images/F15.jpeg', import.meta.url).href,
 ];
 
 const socials = [
@@ -102,6 +135,13 @@ const initialForm = {
   service: 'StartApp Tech',
   message: '',
 };
+
+const navItems = [
+  { to: '/', label: 'Accueil' },
+  { to: '/about', label: 'À propos' },
+  { to: '/academy', label: 'Academy' },
+  { to: '/contact', label: 'Contact' },
+];
 
 function HeroCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -212,7 +252,9 @@ function HomePage() {
         <div className="container service-grid">
           {servicesTech.map((service) => (
             <article key={service.title} className="service-card reveal-card">
-              <div className="card-icon">⚡</div>
+              <div className="card-icon">
+                <img src={service.icon} alt={service.title} />
+              </div>
               <h3>{service.title}</h3>
               <p>{service.text}</p>
             </article>
@@ -288,6 +330,10 @@ function AcademyPage() {
               Des séances individualisées, interactives et pratiques, dispensées par des formateurs expérimentés dans le
               cadre d’un accompagnement personnalisé.
             </p>
+            <p className="pricing-note">
+              Pour les cours à domicile, le tarif est fixé selon le parent ou l’apprenant, en fonction du programme, de la
+              fréquence et du niveau demandé.
+            </p>
           </div>
 
           <div className="academy-panel">
@@ -299,12 +345,38 @@ function AcademyPage() {
             </ul>
           </div>
         </div>
+
+        <div className="pricing-section">
+          <h3>Tarifs StartApp Academy</h3>
+          <div className="pricing-grid">
+            {academyPricing.map((item) => (
+              <article key={item.title} className="pricing-card">
+                <span className="pricing-label">{item.title}</span>
+                <div className="pricing-line">
+                  <span className="pricing-key">Prix du cours</span>
+                  <strong>{item.price}</strong>
+                </div>
+                <div className="pricing-line small-line">
+                  <span className="pricing-key">Inscription</span>
+                  <small>{item.inscription}</small>
+                </div>
+                <div className="pricing-line total-line">
+                  <span className="pricing-key">Total départ</span>
+                  <b>{item.total}</b>
+                </div>
+                <p>{item.note}</p>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 function AboutPage() {
+  const [selectedImage, setSelectedImage] = useState(null);
+
   return (
     <section className="page-section about-bg">
       <div className="container">
@@ -334,7 +406,39 @@ function AboutPage() {
             </p>
           </div>
         </div>
+
+        <div className="gallery-section">
+          <div className="gallery-header">
+            <span className="eyebrow">Galerie</span>
+            <h2>Nos réalisations et moments clés</h2>
+          </div>
+
+          <div className="gallery-grid">
+            {galleryImages.map((image, index) => (
+              <button
+                key={image + index}
+                type="button"
+                className="gallery-item"
+                onClick={() => setSelectedImage(image)}
+                aria-label={`Ouvrir l'image ${index + 1}`}
+              >
+                <img src={image} alt={`Image StartApp ${index + 1}`} />
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
+
+      {selectedImage ? (
+        <div className="lightbox-backdrop" onClick={() => setSelectedImage(null)}>
+          <div className="lightbox-panel" onClick={(event) => event.stopPropagation()}>
+            <button type="button" className="lightbox-close" onClick={() => setSelectedImage(null)} aria-label="Fermer la vue large">
+              ×
+            </button>
+            <img src={selectedImage} alt="Vue large StartApp" />
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
@@ -460,26 +564,37 @@ function ContactPage() {
 }
 
 function App() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <BrowserRouter>
       <div className="app-shell">
         <header className="topbar">
           <div className="container nav-wrapper">
-            <NavLink to="/" className="brand" aria-label="StartApp home">
+            <NavLink to="/" className="brand" aria-label="StartApp home" onClick={() => setIsMobileMenuOpen(false)}>
               <img src={logo} alt="Logo StartApp" className="brand-logo" />
               <span>StartApp</span>
             </NavLink>
 
-            <nav className="main-nav" aria-label="Navigation principale">
-              <NavLink to="/">Accueil</NavLink>
-              <NavLink to="/about">À propos</NavLink>
-              <NavLink to="/academy">Academy</NavLink>
-              <NavLink to="/contact">Contact</NavLink>
+            <nav className={`main-nav ${isMobileMenuOpen ? 'mobile-open' : ''}`} aria-label="Navigation principale">
+              {navItems.map((item) => (
+                <NavLink key={item.to} to={item.to} onClick={() => setIsMobileMenuOpen(false)}>
+                  {item.label}
+                </NavLink>
+              ))}
             </nav>
 
-            <a href="https://wa.me/237680409437" className="primary-btn small" target="_blank" rel="noreferrer">
-              Réserver un appel
-            </a>
+            <button
+              type="button"
+              className="menu-toggle"
+              aria-label="Ouvrir le menu"
+              aria-expanded={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
           </div>
         </header>
 
@@ -533,7 +648,7 @@ function App() {
           rel="noreferrer"
           aria-label="Contacter StartApp sur WhatsApp"
         >
-          ✆
+          <img src={logoWhatsapp} alt="Logo WhatsApp" />
         </a>
       </div>
     </BrowserRouter>
